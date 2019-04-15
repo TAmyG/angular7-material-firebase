@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { CustomerI } from 'src/app/models/customer.interface';
 import { CustomerService } from 'src/app/services/customer.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { FormComponent } from '../form/form.component';
 
 @Component({
   selector: 'list-customers',
@@ -9,11 +11,14 @@ import { CustomerService } from 'src/app/services/customer.service';
   styleUrls: ['./list-customers.component.scss']
 })
 export class ListCustomersComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'city', 'order', 'actions'];
+  displayedColumns: string[] = ['name', 'city', 'order', 'actions', 'new'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private customerService: CustomerService) {}
+  constructor(
+    private customerService: CustomerService,
+    private matDialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.customerService
@@ -30,6 +35,8 @@ export class ListCustomersComponent implements OnInit {
   }
 
   onEdit(element) {
+    this.customerService.clearSelected();
+    this.openModal();
     if (element) {
       this.customerService.selected = element;
     }
@@ -37,5 +44,14 @@ export class ListCustomersComponent implements OnInit {
 
   onDelete(id: string) {
     this.customerService.deleteCustomer(id);
+  }
+
+  openModal(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      title: 'Modal'
+    };
+    dialogConfig.autoFocus = true;
+    this.matDialog.open(FormComponent, dialogConfig);
   }
 }

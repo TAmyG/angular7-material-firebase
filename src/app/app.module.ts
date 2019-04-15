@@ -11,16 +11,16 @@ import { CustomerService } from './services/customer.service';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FormComponent } from './components/form/form.component';
 import { FormsModule } from '@angular/forms';
+import { MainNavComponent } from './main-nav/main-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListCustomersComponent,
-    ToolbarComponent,
-    FormComponent
+    FormComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +32,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   providers: [CustomerService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [FormComponent]
 })
 export class AppModule {}

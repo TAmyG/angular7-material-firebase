@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { CustomerService } from 'src/app/services/customer.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-form',
@@ -7,7 +8,11 @@ import { CustomerService } from 'src/app/services/customer.service';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  constructor(public customerService: CustomerService) {}
+  constructor(
+    public customerService: CustomerService,
+    private dialogRef: MatDialogRef<FormComponent>,
+    @Inject(MAT_DIALOG_DATA) data
+  ) {}
 
   ngOnInit() {}
 
@@ -22,7 +27,11 @@ export class FormComponent implements OnInit {
     } else {
       this.customerService.editCustomer(this.customerService.selected);
     }
-
+    this.close();
     this.customerService.clearSelected();
+  }
+
+  close(): void {
+    this.dialogRef.close();
   }
 }
