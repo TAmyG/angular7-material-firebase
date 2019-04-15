@@ -11,9 +11,10 @@ import { CustomerService } from './services/customer.service';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
-  declarations: [AppComponent, ListCustomersComponent],
+  declarations: [AppComponent, ListCustomersComponent, ToolbarComponent],
   imports: [
     BrowserModule,
     MatModule,
