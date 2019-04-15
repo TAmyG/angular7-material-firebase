@@ -6,6 +6,11 @@ import { MatModule } from './mat/mat.module';
 import { ListCustomersComponent } from './components/list-customers/list-customers.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { CustomerService } from './services/customer.service';
+// firebase
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [AppComponent, ListCustomersComponent],
@@ -13,9 +18,11 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     MatModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.configFirebase)
   ],
-  providers: [],
+  providers: [CustomerService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
