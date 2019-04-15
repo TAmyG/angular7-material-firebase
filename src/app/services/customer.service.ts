@@ -17,6 +17,12 @@ export interface CustomerID extends CustomerI {
 export class CustomerService {
   private customerCollection: AngularFirestoreCollection<CustomerI>;
   customers: Observable<CustomerID[]>;
+  public selected = {
+    id: null,
+    name: '',
+    city: '',
+    order: ''
+  };
 
   constructor(private readonly afs: AngularFirestore) {
     this.customerCollection = afs.collection<CustomerI>('customers');
@@ -33,5 +39,27 @@ export class CustomerService {
 
   getAllCustomers(): Observable<CustomerID[]> {
     return this.customers;
+  }
+
+  editCustomer(customer: CustomerID): Promise<void> {
+    const id = customer.id;
+    return this.customerCollection.doc(id).update(customer);
+  }
+
+  deleteCustomer(id: string): Promise<void> {
+    return this.customerCollection.doc(id).delete();
+  }
+
+  addCustomer(customer: CustomerI) {
+    return this.customerCollection.add(customer);
+  }
+
+  clearSelected(): void {
+    this.selected = {
+      id: null,
+      name: '',
+      city: '',
+      order: ''
+    };
   }
 }

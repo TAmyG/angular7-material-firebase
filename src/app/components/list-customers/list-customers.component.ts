@@ -9,7 +9,7 @@ import { CustomerService } from 'src/app/services/customer.service';
   styleUrls: ['./list-customers.component.scss']
 })
 export class ListCustomersComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'city', 'order'];
+  displayedColumns: string[] = ['name', 'city', 'order', 'actions'];
   dataSource = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
 
@@ -27,5 +27,15 @@ export class ListCustomersComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onEdit(element) {
+    if (element) {
+      this.customerService.selected = element;
+    }
+  }
+
+  onDelete(id: string) {
+    this.customerService.deleteCustomer(id);
   }
 }

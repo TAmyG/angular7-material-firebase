@@ -12,16 +12,24 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { FormComponent } from './components/form/form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, ListCustomersComponent, ToolbarComponent],
+  declarations: [
+    AppComponent,
+    ListCustomersComponent,
+    ToolbarComponent,
+    FormComponent
+  ],
   imports: [
     BrowserModule,
     MatModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     AngularFirestoreModule,
-    AngularFireModule.initializeApp(environment.configFirebase)
+    AngularFireModule.initializeApp(environment.configFirebase),
+    FormsModule
   ],
   providers: [CustomerService],
   bootstrap: [AppComponent]
